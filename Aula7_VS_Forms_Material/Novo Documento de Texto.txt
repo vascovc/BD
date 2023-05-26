@@ -1,0 +1,7 @@
+
+    'Dim dbServer As String = "TEW_SQLEXPRESS"
+    'Dim dbName As String = "Northwind"
+    'Dim userName As String = "p8g3"
+    'Dim userPass As String = ""
+
+    'Dim CN As New SqlConnection("Data Source = " + dbServer + " ;" +"Initial Catalog = " + dbName + "; uid = " + userName + ";" +"password = " + userPass)

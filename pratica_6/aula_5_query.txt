@@ -1,0 +1,66 @@
+-- problema 5.1
+-- a)-agrupar employee com works on e com projeto e depois imprimir o que interessa
+π Ssn, Pname, Fname, Minit, Lname ((project) ⨝ Pnumber=Pno (works_on) ⨝ Essn=Ssn (employee))
+
+-- b)-primeiro ver qual o/os Ssn do Carlos Gomes. renomear por causa de serem os dois employee e comparar a coluna super_ssn com o ssn do mngr
+π Fname, Minit, Lname (π Fname, Minit, Lname, Super_ssn (employee) ⨝ employee.Super_ssn=sup_ssn.Ssn (ρ sup_ssn (π Ssn (σ Fname='Carlos' ∧ Minit='D' ∧ Lname='Gomes' (employee) ))))
+
+-- c)-unir o projeto e o works on. agrupar, somando as horas e imprimir o que interessa
+π Pname,sum_hours (γ Pname, Pnumber; sum(Hours) -> sum_hours (project ⨝ Pnumber = Pno works_on))
+
+-- d)-primeiro unir os projetos com o works on, que tenha aquele nome, depois ver o que tem mais que 20 horas e ligar ao empregado e imprimir o que interessa
+π Fname,Minit,Lname,Ssn ((employee) ⨝ Ssn=Essn (σ (Hours > 20) ((project) ⨝ (Pname='Aveiro Digital' ∧ Pnumber=Pno) (works_on))))
+
+-- e)-primeiro left outer join employee com works_on que se houver algum employee que nao tem works on o works_on vai ter valor null e depois selecionar linhas null e tirar as colunas
+π Fname, Minit, Lname (σ Pno=null ( (employee) ⟕ Ssn=Essn (works_on)))
+
+-- f)-primeiro selecionar os empregados F, depois unir cada um a um departamento, e calcular o average_salary
+γ Dname; avg(Salary) -> avg_salary ((department) ⨝ Dno=Dnumber ((σ Sex='F' employee)))
+
+-- g)-primeiro agrupar os empregados com os seus dependentes, e depois contar o numero de vezes que se repete, e selecionar as linhas que tem mais que 2 dependentes
+σ num_dependents > 2 (γ Ssn,Fname, Minit, Lname; count(Essn) -> num_dependents ((employee) ⨝ Ssn=Essn (dependent)))
+
+-- h)-primeiro associar os departamentos aos seus empregados, e depois meter os dependentes com os gestores de departamento, selecionando o gestor que null no dependente e imprimir so o que importa
+π Ssn, Fname, Minit, Lname (σ Essn=null (dependent ⟖ Essn=Ssn ((employee) ⨝ Ssn=Mgr_ssn (department))))
+
+-- i)-primeiro unir os departamentos e as localizacoes, so os que interessam. unir os projetos que interessam as pessoas. associar a pessoa ao seu departamento
+temp = (dept_location) ⨝ (dept_location.Dnumber = department.Dnumber ∧ dept_location.Dlocation ≠ 'Aveiro') (department) -- os departamentos que interessam
+temp_1 = ((project) ⨝ (Pnumber=Pno ∧ Plocation='Aveiro') (works_on) ⨝ Essn=Ssn (employee)) -- os projetos que interessam assim como quem trabalha neles
+π Fname, Minit, Lname, Address ((temp) ⨝ Dno=department.Dnumber (temp_1))
+
+
+
+-- problema 5.2
+-- a)-primeiro juntar os produtos, fornecedor nif com o encomenda fornecedor, selecionar as linhas que o fornecedor nao tem com encomenda e depois print ao nome e numero
+π nome, nif (σ fornecedor=null ((fornecedor) ⟕ nif=fornecedor (encomenda)))
+
+-- b)-vemos os produtos e fazemos a media das suas unidades paresentando cada produto com a media de unidades por encomenda
+γ codProd;avg(unidades) -> avg_prod item
+
+-- c)-contamos os produtos por encomenda e depois fazemos a media desse sumatorio 
+n_p = (γ numEnc; count(codProd) -> n_prod (item) )
+γ avg(n_prod) -> avg_enc (n_p)
+
+-- d)-juntar os itens com a encomenda e faz-se a soma das unidades da encomenda. ficamos em duvida se era este o objetivo da alinea
+γ codProd, fornecedor; sum(unidades) -> uni (item ⨝ numEnc=numero encomenda)
+
+
+
+-- problema 5.3
+-- a)-unir as prescricoes aos utentes e ver qual o utente que tem numPresc null porque nunca lhe foi prescrita uma unica
+π paciente.numUtente,nome (σ numPresc=null ( (prescricao) ⟖ prescricao.numUtente=paciente.numUtente (paciente) ))
+
+-- b)-unir os medicos as prescricoes e depois contar o numero de vezes que cada especialidade aparece
+γ especialidade; count(especialidade) -> num_prescricoes ((medico) ⨝ numSNS=numMedico (prescricao))
+
+-- c)-nas prescricoes contar o num de farmacias e tirar a null que era a prescricao nao aviada
+σ farmacia ≠ null (γ farmacia; count(farmacia) -> num_presc (prescricao))
+
+-- d)-primeiro ver os farmacos que estao associados a farmaceutica 906, depois fazer o join com os que foram prescritos e o que tiver null na prescricao quer dizer que nao foi prescrito
+π nome (σ numPresc=null (σ numRegFarm=906 (farmaco) ⟕ nome=nomeFarmaco (presc_farmaco)))
+
+-- e)-primeiro unir presc_farmaco para se ter o medicamento por farmaceutica depois liga-se a prescricao para se ter a farmacia em que foi aviada e depois conta-se o numero de vezes que cada farmaceutica aparece em relacao a cada farmacia
+σ prescricao.farmacia ≠ null (γ prescricao.farmacia, farmaceutica.nome; count(farmaceutica.nome) -> num_farm ((prescricao) ⨝ prescricao.numPresc=presc_farmaco.numPresc (presc_farmaco) ⨝ numRegFarm = numReg (farmaceutica)))
+
+-- f)-ver os pacientes e os medicos, tirar tudo o que estava repetido, contar quantas vezes aparecia cada paciente se o paciente aparece mais que uma vez então teve receitas de medicos diferentes.
+π numUtente,nome ((paciente)⨝(σ num_med > 1 γ numUtente;count(numUtente) -> num_med  π numUtente,numMedico prescricao))

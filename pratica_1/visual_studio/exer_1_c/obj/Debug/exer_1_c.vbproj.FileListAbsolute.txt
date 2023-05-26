@@ -1,0 +1,13 @@
+C:\Users\Vasco\OneDrive - Universidade de Aveiro\Grupo\BD\pratica_1\visual_studio\exer_1_c\bin\Debug\exer_1_c.exe.config
+C:\Users\Vasco\OneDrive - Universidade de Aveiro\Grupo\BD\pratica_1\visual_studio\exer_1_c\bin\Debug\exer_1_c.exe
+C:\Users\Vasco\OneDrive - Universidade de Aveiro\Grupo\BD\pratica_1\visual_studio\exer_1_c\bin\Debug\exer_1_c.pdb
+C:\Users\Vasco\OneDrive - Universidade de Aveiro\Grupo\BD\pratica_1\visual_studio\exer_1_c\bin\Debug\exer_1_c.xml
+C:\Users\Vasco\OneDrive - Universidade de Aveiro\Grupo\BD\pratica_1\visual_studio\exer_1_c\obj\Debug\exer_1_c.vbproj.AssemblyReference.cache
+C:\Users\Vasco\OneDrive - Universidade de Aveiro\Grupo\BD\pratica_1\visual_studio\exer_1_c\obj\Debug\exer_1_c.vbproj.SuggestedBindingRedirects.cache
+C:\Users\Vasco\OneDrive - Universidade de Aveiro\Grupo\BD\pratica_1\visual_studio\exer_1_c\obj\Debug\exer_1_c.Form1.resources
+C:\Users\Vasco\OneDrive - Universidade de Aveiro\Grupo\BD\pratica_1\visual_studio\exer_1_c\obj\Debug\exer_1_c.Resources.resources
+C:\Users\Vasco\OneDrive - Universidade de Aveiro\Grupo\BD\pratica_1\visual_studio\exer_1_c\obj\Debug\exer_1_c.vbproj.GenerateResource.cache
+C:\Users\Vasco\OneDrive - Universidade de Aveiro\Grupo\BD\pratica_1\visual_studio\exer_1_c\obj\Debug\exer_1_c.vbproj.CoreCompileInputs.cache
+C:\Users\Vasco\OneDrive - Universidade de Aveiro\Grupo\BD\pratica_1\visual_studio\exer_1_c\obj\Debug\exer_1_c.exe
+C:\Users\Vasco\OneDrive - Universidade de Aveiro\Grupo\BD\pratica_1\visual_studio\exer_1_c\obj\Debug\exer_1_c.xml
+C:\Users\Vasco\OneDrive - Universidade de Aveiro\Grupo\BD\pratica_1\visual_studio\exer_1_c\obj\Debug\exer_1_c.pdb
